@@ -37,7 +37,7 @@ bool XMLReader::LoadFile(const std::string& filePath)
 }
 
 // Метод для возврата значения по ключу из unordered_map
-std::string XMLReader::GetValue(const std::string& key) const
+const std::string& XMLReader::GetValue(const std::string& key) const
 {
     auto iter = translations.find(key);
     if (iter != translations.end())
@@ -46,7 +46,7 @@ std::string XMLReader::GetValue(const std::string& key) const
     }
     else
     {
-        return "";
+        return 0;
     }
 }
 

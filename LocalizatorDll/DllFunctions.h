@@ -7,6 +7,6 @@
 //};
 
 
-extern "C" __declspec(dllexport) bool ReadXML(std::string);
+extern "C" __declspec(dllexport) bool ReadXML(const char*);
 
-extern "C" __declspec(dllexport) std::string GetWorld(std::string);
+extern "C" __declspec(dllexport) const char* GetWord(const char*);

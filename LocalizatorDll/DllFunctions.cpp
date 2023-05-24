@@ -4,21 +4,19 @@
 
 XMLReader dictionary;
 
-extern "C" __declspec(dllexport) bool ReadXML(std::string pathFile)
+extern "C" __declspec(dllexport) bool ReadXML(const char* pathFile)
 {
 	try
 	{
-		dictionary.LoadFile(pathFile);
+		return dictionary.LoadFile(pathFile);
 	}
 	catch (const std::exception&)
 	{
 		return false;
 	}
-
-	return true;
 }
 
-extern "C" __declspec(dllexport) std::string GetWorld(std::string key)
+extern "C" __declspec(dllexport) const char* GetWord(const char* key)
 {
-	return dictionary.GetValue(key);
+	return dictionary.GetValue(key).c_str();
 }

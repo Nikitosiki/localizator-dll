@@ -12,5 +12,5 @@ public:
     bool LoadFile(const std::string&);
 
     // Метод для возврата значения по ключу из unordered_map
-    std::string GetValue(const std::string&) const;
+    const std::string& GetValue(const std::string&) const;
 };

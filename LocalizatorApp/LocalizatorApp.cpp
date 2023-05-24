@@ -10,7 +10,7 @@ int main()
 		cout << "Path to XML file:";
 		std::string pathFile;
 		std::getline(std::cin, pathFile);
-		if (!ReadXML(pathFile))
+		if (!ReadXML(pathFile.c_str()))
 		{
 			cout << "Error load file!";
 			continue;
@@ -24,7 +24,7 @@ int main()
 	{
 		cout << "\n\nWrite the key:";
 		cin >> keyValue;
-		cout << "Value: " + GetWorld(keyValue);
+		cout << "Value: " << GetWord(keyValue.c_str());
 
 	}
 }
