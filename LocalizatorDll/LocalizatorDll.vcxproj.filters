@@ -13,66 +13,78 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Исходные файлы\Main">
-      <UniqueIdentifier>{74f7156e-9d95-444a-bf62-3dd339a2fd92}</UniqueIdentifier>
+    <Filter Include="Файлы заголовков\DLL">
+      <UniqueIdentifier>{4eba8818-90b5-4135-b1ed-4e3a41baacc6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Файлы заголовков\Main">
-      <UniqueIdentifier>{905ad22d-7d91-45c4-99af-d5b429573c5d}</UniqueIdentifier>
+    <Filter Include="Исходные файлы\DLL">
+      <UniqueIdentifier>{1edf2604-4d15-43e3-838e-a2f60bc6cf26}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Файлы заголовков\PugiXML">
+    <Filter Include="Файлы заголовков\Handler">
+      <UniqueIdentifier>{dc31a0d5-c940-452b-9ed7-d948a9619459}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Library">
+      <UniqueIdentifier>{e3925fcc-3c08-4778-89a8-4968fd2d7fb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Library\PugiXML">
       <UniqueIdentifier>{9deb7a1f-edb6-424e-92c4-447e444f1b50}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Исходные файлы\PugiXML">
+    <Filter Include="Исходные файлы\Library">
+      <UniqueIdentifier>{73f16d85-3700-4aee-ac8a-87941c639cab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Library\PugiXML">
       <UniqueIdentifier>{d9f715e8-3648-4184-a3b6-d4f65c14cdf5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Handler">
+      <UniqueIdentifier>{617e4e11-31bb-4225-967b-f142ac98aaaf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Entities">
+      <UniqueIdentifier>{d6e51436-404d-4828-8ab9-b1f0ed007c37}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="framework.h">
+    <ClInclude Include="pugixml.hpp">
+      <Filter>Файлы заголовков\Library\PugiXML</Filter>
+    </ClInclude>
+    <ClInclude Include="pugiconfig.hpp">
+      <Filter>Файлы заголовков\Library\PugiXML</Filter>
+    </ClInclude>
+    <ClInclude Include="LocalizerHandler.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="pch.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="LocalizatorHandler.h">
-      <Filter>Файлы заголовков\Main</Filter>
-    </ClInclude>
-    <ClInclude Include="SettingsLocalizer.h">
-      <Filter>Файлы заголовков\Main</Filter>
+      <Filter>Файлы заголовков\DLL</Filter>
     </ClInclude>
     <ClInclude Include="DllFunctions.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Файлы заголовков\DLL</Filter>
+    </ClInclude>
+    <ClInclude Include="framework.h">
+      <Filter>Файлы заголовков\DLL</Filter>
     </ClInclude>
     <ClInclude Include="XMLReader.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Файлы заголовков\Handler</Filter>
     </ClInclude>
-    <ClInclude Include="pugixml.hpp">
-      <Filter>Файлы заголовков\PugiXML</Filter>
-    </ClInclude>
-    <ClInclude Include="pugiconfig.hpp">
-      <Filter>Файлы заголовков\PugiXML</Filter>
+    <ClInclude Include="language.h">
+      <Filter>Файлы заголовков\Entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="dllmain.cpp">
+    <ClCompile Include="pugixml.cpp">
+      <Filter>Исходные файлы\Library\PugiXML</Filter>
+    </ClCompile>
+    <ClCompile Include="LocalizerHandler.cpp">
       <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>Исходные файлы\DLL</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="LocalizatorHandler.cpp">
-      <Filter>Исходные файлы\Main</Filter>
-    </ClCompile>
-    <ClCompile Include="SettingsLocalizer.cpp">
-      <Filter>Исходные файлы\Main</Filter>
+      <Filter>Исходные файлы\DLL</Filter>
     </ClCompile>
     <ClCompile Include="DllFunctions.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Исходные файлы\DLL</Filter>
     </ClCompile>
     <ClCompile Include="XMLReader.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="pugixml.cpp">
-      <Filter>Исходные файлы\PugiXML</Filter>
+      <Filter>Исходные файлы\Handler</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

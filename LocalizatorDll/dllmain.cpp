@@ -1,5 +1,4 @@
 ﻿#include "pch.h"
-#include "LocalizatorHandler.h"
 #include "DllFunctions.h"
 
 

@@ -141,17 +141,17 @@
   <ItemGroup>
     <ClInclude Include="DllFunctions.h" />
     <ClInclude Include="framework.h" />
-    <ClInclude Include="LocalizatorHandler.h" />
+    <ClInclude Include="language.h" />
+    <ClInclude Include="LocalizerHandler.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="pugiconfig.hpp" />
     <ClInclude Include="pugixml.hpp" />
-    <ClInclude Include="SettingsLocalizer.h" />
     <ClInclude Include="XMLReader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DllFunctions.cpp" />
     <ClCompile Include="dllmain.cpp" />
-    <ClCompile Include="LocalizatorHandler.cpp" />
+    <ClCompile Include="LocalizerHandler.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -159,7 +159,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="pugixml.cpp" />
-    <ClCompile Include="SettingsLocalizer.cpp" />
     <ClCompile Include="XMLReader.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

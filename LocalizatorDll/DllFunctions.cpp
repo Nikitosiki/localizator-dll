@@ -1,22 +1,37 @@
 #include "pch.h"
 #include "DllFunctions.h"
-#include "XMLReader.h"
+#include "LocalizerHandler.h"
 
-XMLReader dictionary;
 
-extern "C" __declspec(dllexport) bool ReadXML(const char* pathFile)
+LocalizerHandler* localizator;
+
+extern "C" __declspec(dllexport) void Start()
 {
-	try
-	{
-		return dictionary.LoadFile(pathFile);
-	}
-	catch (const std::exception&)
-	{
-		return false;
-	}
+	localizator = new LocalizerHandler();
 }
 
 extern "C" __declspec(dllexport) const char* GetWord(const char* key)
 {
-	return dictionary.GetValue(key).c_str();
+	if (!localizator)
+		Start();
+
+	return localizator->GetValue(key).c_str();
+}
+
+char* tempOutput_GetLanguageNames = nullptr;
+extern "C" __declspec(dllexport) const char* GetLanguageNames()
+{
+	if (!localizator)
+		Start();
+
+	if (tempOutput_GetLanguageNames)
+	{
+		delete tempOutput_GetLanguageNames;
+		tempOutput_GetLanguageNames = nullptr;
+	}
+
+	const std::string& temp = localizator->GetLanguageNames();
+	tempOutput_GetLanguageNames = new char[temp.length()];
+	std::copy(temp.c_str(), temp.c_str() + temp.length() - 1, tempOutput_GetLanguageNames);
+	return tempOutput_GetLanguageNames;
 }

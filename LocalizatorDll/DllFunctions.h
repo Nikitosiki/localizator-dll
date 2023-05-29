@@ -2,11 +2,8 @@
 #include <string>
 
 
-//class DllFunctions
-//{
-//};
-
-
-extern "C" __declspec(dllexport) bool ReadXML(const char*);
+extern "C" __declspec(dllexport) void Start();
 
 extern "C" __declspec(dllexport) const char* GetWord(const char*);
+
+extern "C" __declspec(dllexport) const char* GetLanguageNames();
