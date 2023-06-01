@@ -11,7 +11,15 @@ int main()
 	{
 
 		Start();
-		cout << GetLanguageNames();
+		//cout << GetLanguageNamesStr();
+
+		int size;
+		const char** mas = GetLanguageNamesArr(size);
+		for (int i = 0; i < size; i++)
+		{
+			cout << mas[i] << endl;
+		}
+
 		/*std::string keyValue;
 		while (true)
 		{

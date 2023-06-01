@@ -19,5 +19,7 @@ public:
 	const std::string& GetValue(const std::string&) const;
 
 	const std::string GetLanguageNames() const;
+
+	const char** GetLanguageNames(int&) const;
 };
 

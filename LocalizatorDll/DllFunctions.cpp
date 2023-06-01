@@ -18,8 +18,17 @@ extern "C" __declspec(dllexport) const char* GetWord(const char* key)
 	return localizator->GetValue(key).c_str();
 }
 
+extern "C" __declspec(dllexport) const char** GetLanguageNamesArr(int& size)
+{
+	if (!localizator)
+		Start();
+
+	return localizator->GetLanguageNames(size);
+}
+
+// Bad Code
 char* tempOutput_GetLanguageNames = nullptr;
-extern "C" __declspec(dllexport) const char* GetLanguageNames()
+extern "C" __declspec(dllexport) const char* GetLanguageNamesStr()
 {
 	if (!localizator)
 		Start();

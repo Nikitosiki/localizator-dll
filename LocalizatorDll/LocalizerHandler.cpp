@@ -7,8 +7,10 @@
 
 LocalizerHandler::LocalizerHandler()
 {
+    // Получаем путь текущей директории
     const std::string directoryPath = GetDllFolderPath();
 
+    // Загружаем перечень языков из файла настроек
     if (!XMLReader::ReadLanguagesFromFile(directoryPath + "\\language\\settings.xml", this->languages))
         throw "Error. Reading settings file!";
 
@@ -47,6 +49,21 @@ const std::string LocalizerHandler::GetLanguageNames() const
         names += languageThis.name;
     }
     return names;
+}
+
+const char** LocalizerHandler::GetLanguageNames(int& size) const
+{
+    if (languages.empty())
+        throw "Error. Dictionary file is empty!";
+
+    size = languages.size();
+    const char** languageNames = new const char* [size];
+
+    for (int i = 0; i < size; ++i) {
+        languageNames[i] = languages[i].name.c_str();
+    }
+
+    return languageNames;
 }
 
 const std::string LocalizerHandler::GetDllFolderPath() const

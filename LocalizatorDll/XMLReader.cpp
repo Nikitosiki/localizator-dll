@@ -38,6 +38,32 @@ const bool XMLReader::ReadLanguagesFromFile(const std::string& fileFullPath, std
 }
 
 
+const bool XMLReader::ReadFromFile(const std::string& fileFullPath, const std::string& selectNode, const std::string& selectChildren, const std::string& selectAttribute, std::string& value)
+{
+    xml_document doc;
+    if (!doc.load_file(fileFullPath.c_str()))
+    {
+        return false;
+    }
+
+    xml_node node = doc.select_node(selectNode.c_str()).node();
+    if (node.empty()) {
+        return false;
+    }
+
+    xml_node entry = node.child(selectChildren.c_str());
+    if (entry.empty()) {
+        return false;
+    }
+
+    value = entry.attribute(selectAttribute.c_str()).as_string();
+    if (value.empty()) {
+        return false;
+    }
+
+    return true;
+}
+
 //// Метод для считывания файла XML и сохранения его в unordered_map
 //const std::string XMLReader::LoadFile(const std::string& filePath)
 //{
