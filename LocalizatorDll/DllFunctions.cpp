@@ -74,7 +74,7 @@ extern "C" __declspec(dllexport) const char* GetLanguageNamesStr()
 
 extern "C" __declspec(dllexport) void Stop()
 {
-	delete localizator;
+	if (localizator) delete localizator;
 	if (tempOutput_GetLanguageName) delete tempOutput_GetLanguageName;
 	if (tempOutput_GetLanguageNames) delete tempOutput_GetLanguageNames;
 }

@@ -17,29 +17,30 @@ LocalizerHandler::LocalizerHandler()
 
     // Загружаем перечень языков из файла настроек
     if (!XMLReader::ReadLanguagesFromFile(directoryPath + "\\language\\settings.xml", *this->languages))
-        throw "Error. Reading settings file!";
+        MessageError(NULL, "Error. Reading settings file!", "Localizer Error", MB_ICONERROR | MB_OK);
+
 
     // Проверяем что файлы языков существуют
     if (!CheckAllTranslationsExist(directoryPath + "\\language\\dictionaries\\", *this->languages))
-        throw "Error. Not all dictionary files exist!";
+        MessageError(NULL, "Error. Not all dictionary files exist!", "Localizer Error", MB_ICONERROR | MB_OK);
 
     // Считываем название файла выбранного языка, в файле настроек
     std::string fileLanguageName;
     if (!XMLReader::ReadSelectLangFile_FromFile(directoryPath + "\\language\\settings.xml", fileLanguageName))
-        throw "Error. Reading settings file!";
+        MessageError(NULL, "Error. Reading settings file!", "Localizer Error", MB_ICONERROR | MB_OK);
 
     // Считываем словарь с нужным переводом
     if (!XMLReader::ReadTranslationsFromFile(directoryPath + "\\language\\dictionaries\\" + fileLanguageName, *this->dictionary))
-        throw ("Error. Reading dictionary file: " + fileLanguageName).c_str();
+        MessageError(NULL, ("Error. Reading dictionary file: " + fileLanguageName).c_str(), "Localizer Error", MB_ICONERROR | MB_OK);
 
     // Считываем файл со всеми ключами
     std::vector<std::string> keys;
     if (!XMLReader::ReadKeysFromFile(directoryPath + "\\language\\keys.xml", keys))
-        throw "Error. Reading keys file!";
+        MessageError(NULL, "Error. Reading keys file!", "Localizer Error", MB_ICONERROR | MB_OK);
 
     // Проверяем словарь на корректность, используя файл со всеми ключами
     if (!CheckCorrectDictionary(keys, *this->dictionary))
-        throw ("Error. Incorrect keys in dictionary, file: " + fileLanguageName).c_str();
+        MessageError(NULL, ("Error. Incorrect keys in dictionary, file: " + fileLanguageName).c_str(), "Localizer Error", MB_ICONERROR | MB_OK);
 }
 
 LocalizerHandler::~LocalizerHandler()
@@ -53,7 +54,7 @@ LocalizerHandler::~LocalizerHandler()
 const std::string& LocalizerHandler::GetValue(const std::string& key) const
 {
     if (dictionary->empty())
-        throw "Error. Dictionary file is empty!";
+        MessageError(NULL, "Error. Dictionary file is empty!", "Localizer Error", MB_ICONERROR | MB_OK);
 
     auto iter = dictionary->find(key);
     if (iter != dictionary->end())
@@ -62,27 +63,27 @@ const std::string& LocalizerHandler::GetValue(const std::string& key) const
     }
     else
     {
-        throw "Error. No key in dictionary!";
+        MessageError(NULL, ("Error. No key: \"" + key + "\", in dictionary!").c_str(), "Localizer Error", MB_ICONERROR | MB_OK);
     }
 }
 
 const void LocalizerHandler::SetLanguage(const std::string& nameLanguage) const
 {
     if (languages->empty())
-        throw "Error. Languages file is empty!";
+        MessageError(NULL, "Error. Languages file is empty!", "Localizer Error", MB_ICONERROR | MB_OK);
 
     if (!XMLReader::ModifySelectLangFile(GetDllFolderPath() + "\\language\\settings.xml", nameLanguage))
-        throw "Error. Modify select language!";
+        MessageError(NULL, "Error. Modify select language!", "Localizer Error", MB_ICONERROR | MB_OK);
 }
 
 const std::string LocalizerHandler::GetSelectLanguageName() const
 {
     if (languages->empty())
-        throw "Error. Languages file is empty!";
+        MessageError(NULL, "Error. Languages file is empty!", "Localizer Error", MB_ICONERROR | MB_OK);
 
     std::string nameSelectLang;
     if (!XMLReader::ReadSelectLangName_FromFile(GetDllFolderPath() + "\\language\\settings.xml", nameSelectLang))
-        throw "Error. Reading settings file!";
+        MessageError(NULL, "Error. Reading settings file!", "Localizer Error", MB_ICONERROR | MB_OK);
 
     return nameSelectLang;
 }
@@ -90,7 +91,7 @@ const std::string LocalizerHandler::GetSelectLanguageName() const
 const std::string LocalizerHandler::GetLanguageNames() const
 {
     if (languages->empty())
-        throw "Error. Languages file is empty!";
+        MessageError(NULL, "Error. Languages file is empty!", "Localizer Error", MB_ICONERROR | MB_OK);
 
     std::string names;
     for (const language& languageThis : *languages) {
@@ -105,7 +106,7 @@ const std::string LocalizerHandler::GetLanguageNames() const
 const char** LocalizerHandler::GetLanguageNames(int& size) const
 {
     if (languages->empty())
-        throw "Error. Languages file is empty!";
+        MessageError(NULL, "Error. Languages file is empty!", "Localizer Error", MB_ICONERROR | MB_OK);
 
     size = languages->size();
     const char** languageNames = new const char* [size];
@@ -122,6 +123,13 @@ const char** LocalizerHandler::GetLanguageNames(int& size) const
 // ---------- Helper class ----------
 // ----------------------------------
 
+const void LocalizerHandler::MessageError(const HWND& hWnd, const LPCSTR& lpText, const LPCSTR& lpCaption, const UINT& uType) const
+{
+    MessageBoxA(hWnd, lpText, lpCaption, uType);
+
+    ExitProcess(0);
+}
+
 const std::string LocalizerHandler::GetDllFolderPath() const
 {
     char path[MAX_PATH];
@@ -136,7 +144,7 @@ const std::string LocalizerHandler::GetDllFolderPath() const
         return fullPath.substr(0, found);
     }
 
-    return "Error. Failed to get project directory. \nModuleHandleException: Failed to retrieve the module handle.";
+    MessageError(NULL, "Error. Failed to get project directory!", "Localizer Error", MB_ICONERROR | MB_OK);
 }
 
 const bool LocalizerHandler::CheckCorrectDictionary(const std::vector<std::string>& keys, const std::unordered_map<std::string, std::string>& dictionary) const

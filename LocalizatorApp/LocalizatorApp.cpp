@@ -36,7 +36,7 @@ int main()
 			return 0;
 		}
 
-		while (true)
+		//while (true)
 		{
 			cout << "\n\nWrite the key:";
 			cin >> keyValue;

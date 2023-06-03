@@ -15,6 +15,8 @@ private:
 
 	const bool CheckAllTranslationsExist(const std::string& folderPath, const std::vector<language>& languages) const;
 
+	const void MessageError(const HWND& hWnd, const LPCSTR& lpText, const LPCSTR& lpCaption, const UINT& uType) const;
+
 
 public:
 	LocalizerHandler();
