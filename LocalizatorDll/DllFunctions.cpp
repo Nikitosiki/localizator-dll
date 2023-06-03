@@ -42,12 +42,12 @@ extern "C" __declspec(dllexport) const char* GetSelectLanguage()
 
 	if (tempOutput_GetLanguageName)
 	{
-		delete tempOutput_GetLanguageName;
+		delete[] tempOutput_GetLanguageName;
 		tempOutput_GetLanguageName = nullptr;
 	}
 
 	const std::string& temp = localizator->GetSelectLanguageName();
-	tempOutput_GetLanguageName = new char[temp.length()];
+	tempOutput_GetLanguageName = new char[temp.length() + 1];
 	std::copy(temp.c_str(), temp.c_str() + temp.length(), tempOutput_GetLanguageName);
 	tempOutput_GetLanguageName[temp.length()] = '\0';
 	return tempOutput_GetLanguageName;
@@ -61,12 +61,12 @@ extern "C" __declspec(dllexport) const char* GetLanguageNamesStr()
 
 	if (tempOutput_GetLanguageNames)
 	{
-		delete tempOutput_GetLanguageNames;
+		delete[] tempOutput_GetLanguageNames;
 		tempOutput_GetLanguageNames = nullptr;
 	}
 
 	const std::string& temp = localizator->GetLanguageNames();
-	tempOutput_GetLanguageNames = new char[temp.length()];
+	tempOutput_GetLanguageNames = new char[temp.length() + 1];
 	std::copy(temp.c_str(), temp.c_str() + temp.length(), tempOutput_GetLanguageNames);
 	tempOutput_GetLanguageNames[temp.length()] = '\0';
 	return tempOutput_GetLanguageNames;
@@ -74,7 +74,7 @@ extern "C" __declspec(dllexport) const char* GetLanguageNamesStr()
 
 extern "C" __declspec(dllexport) void Stop()
 {
-	if (localizator) delete localizator;
-	if (tempOutput_GetLanguageName) delete tempOutput_GetLanguageName;
-	if (tempOutput_GetLanguageNames) delete tempOutput_GetLanguageNames;
+	if (localizator != nullptr) delete localizator;
+	if (tempOutput_GetLanguageName != nullptr) delete[] tempOutput_GetLanguageName;
+	if (tempOutput_GetLanguageNames != nullptr) delete[] tempOutput_GetLanguageNames;
 }

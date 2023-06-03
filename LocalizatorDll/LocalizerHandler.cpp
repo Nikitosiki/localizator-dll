@@ -73,7 +73,7 @@ const void LocalizerHandler::SetLanguage(const std::string& nameLanguage) const
         MessageError(NULL, "Error. Languages file is empty!", "Localizer Error", MB_ICONERROR | MB_OK);
 
     if (!XMLReader::ModifySelectLangFile(GetDllFolderPath() + "\\language\\settings.xml", nameLanguage))
-        MessageError(NULL, "Error. Modify select language!", "Localizer Error", MB_ICONERROR | MB_OK);
+        MessageError(NULL, ("Error. Modify select language! Input Language: " + nameLanguage).c_str(), "Localizer Error", MB_ICONERROR | MB_OK);
 }
 
 const std::string LocalizerHandler::GetSelectLanguageName() const

@@ -82,7 +82,7 @@ const bool XMLReader::ReadSelectLangFile_FromFile(const std::string& fileFullPat
     for (pugi::xml_node languageNode = availableLanguagesNode.child("language"); languageNode; languageNode = languageNode.next_sibling("language"))
     {
         std::string languageCode = languageNode.attribute("code").as_string();
-        if (languageCode == selectedLanguageCode)
+        if (languageCode.compare(selectedLanguageCode) == 0)
         {
             values = languageNode.attribute("file").as_string();
             return true;
@@ -117,7 +117,7 @@ const bool XMLReader::ReadSelectLangName_FromFile(const std::string& fileFullPat
     for (pugi::xml_node languageNode = availableLanguagesNode.child("language"); languageNode; languageNode = languageNode.next_sibling("language"))
     {
         std::string languageCode = languageNode.attribute("code").as_string();
-        if (languageCode == selectedLanguageCode)
+        if (languageCode.compare(selectedLanguageCode) == 0)
         {
             values = languageNode.attribute("name").as_string();
             return true;
@@ -205,7 +205,7 @@ const bool XMLReader::ModifySelectLangFile(const std::string& fileFullPath, cons
     {
         std::string name = languageNode.attribute("name").as_string();
 
-        if (name == nameLang)
+        if (name.compare(nameLang) == 0)
         {
             newCode = languageNode.attribute("code").as_string();
             break;
