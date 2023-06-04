@@ -146,6 +146,7 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="pugiconfig.hpp" />
     <ClInclude Include="pugixml.hpp" />
+    <ClInclude Include="StringConverter.h" />
     <ClInclude Include="XMLReader.h" />
   </ItemGroup>
   <ItemGroup>
@@ -159,9 +160,20 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="pugixml.cpp" />
+    <ClCompile Include="StringConverter.cpp" />
     <ClCompile Include="XMLReader.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\LocalizatorApp\packages\libiconv.lib.1.16.0.6\build\native\libiconv.lib.targets" Condition="Exists('..\LocalizatorApp\packages\libiconv.lib.1.16.0.6\build\native\libiconv.lib.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\LocalizatorApp\packages\libiconv.lib.1.16.0.6\build\native\libiconv.lib.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\LocalizatorApp\packages\libiconv.lib.1.16.0.6\build\native\libiconv.lib.targets'))" />
+  </Target>
 </Project>

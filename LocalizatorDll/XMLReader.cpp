@@ -5,6 +5,7 @@
 #include "XMLReader.h"
 #include "pugixml.hpp"
 #include "language.h"
+#include "StringConverter.h"
 
 using namespace pugi;
 
@@ -119,6 +120,7 @@ const bool XMLReader::ReadSelectLangName_FromFile(const std::string& fileFullPat
         std::string languageCode = languageNode.attribute("code").as_string();
         if (languageCode.compare(selectedLanguageCode) == 0)
         {
+            //values = StringConverter::ConvertUtf8ToAnsi(languageNode.attribute("name").as_string());
             values = languageNode.attribute("name").as_string();
             return true;
         }
@@ -171,6 +173,7 @@ const bool XMLReader::ReadTranslationsFromFile(const std::string& fileFullPath, 
     {
         std::string key = entryNode.attribute("key").as_string();
         std::string value = entryNode.attribute("value").as_string();
+        //dictionary[key] = StringConverter::ConvertUtf8ToAnsi(value);
         dictionary[key] = value;
     }
 

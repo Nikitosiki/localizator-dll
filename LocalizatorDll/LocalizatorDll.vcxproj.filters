@@ -40,6 +40,12 @@
     <Filter Include="Файлы заголовков\Entities">
       <UniqueIdentifier>{d6e51436-404d-4828-8ab9-b1f0ed007c37}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Исходные файлы\Helper">
+      <UniqueIdentifier>{8f3fe8c9-7322-4314-a39b-079aea91d5c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Helper">
+      <UniqueIdentifier>{3564fe72-b79c-4d30-95a7-fe4cc4aeab94}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pugixml.hpp">
@@ -66,6 +72,9 @@
     <ClInclude Include="language.h">
       <Filter>Файлы заголовков\Entities</Filter>
     </ClInclude>
+    <ClInclude Include="StringConverter.h">
+      <Filter>Файлы заголовков\Helper</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pugixml.cpp">
@@ -86,5 +95,11 @@
     <ClCompile Include="XMLReader.cpp">
       <Filter>Исходные файлы\Handler</Filter>
     </ClCompile>
+    <ClCompile Include="StringConverter.cpp">
+      <Filter>Исходные файлы\Helper</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

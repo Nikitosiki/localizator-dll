@@ -3,6 +3,7 @@
 #include <fstream>
 #include <string>
 #include "LocalizerHandler.h"
+#include "DllFunctions.h"
 #include "XMLReader.h"
 
 
@@ -126,7 +127,7 @@ const char** LocalizerHandler::GetLanguageNames(int& size) const
 const void LocalizerHandler::MessageError(const HWND& hWnd, const LPCSTR& lpText, const LPCSTR& lpCaption, const UINT& uType) const
 {
     MessageBoxA(hWnd, lpText, lpCaption, uType);
-
+    Stop();
     ExitProcess(0);
 }
 
