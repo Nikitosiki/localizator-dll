@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <algorithm>
 #include "LocalizerHandler.h"
 #include "DllFunctions.h"
 #include "XMLReader.h"
@@ -20,10 +21,19 @@ LocalizerHandler::LocalizerHandler()
     if (!XMLReader::ReadLanguagesFromFile(directoryPath + "\\language\\settings.xml", *this->languages))
         MessageError(NULL, "Error. Reading settings file!", "Localizer Error", MB_ICONERROR | MB_OK);
 
-
     // Проверяем что файлы языков существуют
     if (!CheckAllTranslationsExist(directoryPath + "\\language\\dictionaries\\", *this->languages))
         MessageError(NULL, "Error. Not all dictionary files exist!", "Localizer Error", MB_ICONERROR | MB_OK);
+
+    // Считываем файл со всеми ключами
+    std::vector<std::string> keys;
+    if (!XMLReader::ReadKeysFromFile(directoryPath + "\\language\\keys.xml", keys))
+        MessageError(NULL, "Error. Reading keys file!", "Localizer Error", MB_ICONERROR | MB_OK);
+
+    // Проверяем что все ключи уникальные
+    std::string duplicateKey;
+    if (isDuplicates(keys, duplicateKey))
+        MessageError(NULL, ("Error. Key file contains a duplicate: " + duplicateKey).c_str(), "Localizer Error", MB_ICONERROR | MB_OK);
 
     // Считываем название файла выбранного языка, в файле настроек
     std::string fileLanguageName;
@@ -33,11 +43,6 @@ LocalizerHandler::LocalizerHandler()
     // Считываем словарь с нужным переводом
     if (!XMLReader::ReadTranslationsFromFile(directoryPath + "\\language\\dictionaries\\" + fileLanguageName, *this->dictionary))
         MessageError(NULL, ("Error. Reading dictionary file: " + fileLanguageName).c_str(), "Localizer Error", MB_ICONERROR | MB_OK);
-
-    // Считываем файл со всеми ключами
-    std::vector<std::string> keys;
-    if (!XMLReader::ReadKeysFromFile(directoryPath + "\\language\\keys.xml", keys))
-        MessageError(NULL, "Error. Reading keys file!", "Localizer Error", MB_ICONERROR | MB_OK);
 
     // Проверяем словарь на корректность, используя файл со всеми ключами
     if (!CheckCorrectDictionary(keys, *this->dictionary))
@@ -129,6 +134,24 @@ const void LocalizerHandler::MessageError(const HWND& hWnd, const LPCSTR& lpText
     MessageBoxA(hWnd, lpText, lpCaption, uType);
     Stop();
     ExitProcess(0);
+}
+
+const bool LocalizerHandler::isDuplicates(const std::vector<std::string>& values, std::string& duplicateElement) const
+{
+    std::vector<std::string> sortedValues = values;      // Создаем копию вектора
+    std::sort(sortedValues.begin(), sortedValues.end()); // Сортируем копию
+
+    // Проверяем, есть ли соседние элементы в отсортированном векторе, которые равны
+    for (std::size_t i = 1; i < sortedValues.size(); ++i)
+    {
+        if (sortedValues[i] == sortedValues[i - 1])
+        {
+            duplicateElement = sortedValues[i];
+            return true; // Есть дубликаты
+        }
+    }
+
+    return false; // Дубликатов нет
 }
 
 const std::string LocalizerHandler::GetDllFolderPath() const

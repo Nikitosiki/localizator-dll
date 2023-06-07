@@ -17,6 +17,8 @@ private:
 
 	const void MessageError(const HWND& hWnd, const LPCSTR& lpText, const LPCSTR& lpCaption, const UINT& uType) const;
 
+	const bool isDuplicates(const std::vector<std::string>& values, std::string& duplicateElement) const;
+
 
 public:
 	LocalizerHandler();
