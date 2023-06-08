@@ -45,8 +45,9 @@ LocalizerHandler::LocalizerHandler()
         MessageError(NULL, ("Error. Reading dictionary file: " + fileLanguageName).c_str(), "Localizer Error", MB_ICONERROR | MB_OK);
 
     // Проверяем словарь на корректность, используя файл со всеми ключами
-    if (!CheckCorrectDictionary(keys, *this->dictionary))
-        MessageError(NULL, ("Error. Incorrect keys in dictionary, file: " + fileLanguageName).c_str(), "Localizer Error", MB_ICONERROR | MB_OK);
+    std::string ErrorMess;
+    if (!CheckCorrectDictionary(keys, *this->dictionary, ErrorMess))
+        MessageError(NULL, ("Error. Incorrect keys in dictionary, file: " + fileLanguageName + "\n" + ErrorMess).c_str(), "Localizer Error", MB_ICONERROR | MB_OK);
 }
 
 LocalizerHandler::~LocalizerHandler()
@@ -171,10 +172,11 @@ const std::string LocalizerHandler::GetDllFolderPath() const
     MessageError(NULL, "Error. Failed to get project directory!", "Localizer Error", MB_ICONERROR | MB_OK);
 }
 
-const bool LocalizerHandler::CheckCorrectDictionary(const std::vector<std::string>& keys, const std::unordered_map<std::string, std::string>& dictionary) const
+const bool LocalizerHandler::CheckCorrectDictionary(const std::vector<std::string>& keys, const std::unordered_map<std::string, std::string>& dictionary, std::string& errorMess) const
 {
     if (keys.size() != dictionary.size())
     {
+        errorMess = "Incorrect number of keys!";
         return false;
     }
 
@@ -182,6 +184,7 @@ const bool LocalizerHandler::CheckCorrectDictionary(const std::vector<std::strin
     {
         if (dictionary.find(key) == dictionary.end())
         {
+            errorMess = "Key not found: " + key;
             return false;
         }
     }

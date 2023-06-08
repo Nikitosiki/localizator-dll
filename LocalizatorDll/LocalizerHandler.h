@@ -11,7 +11,7 @@ private:
 
 	const std::string GetDllFolderPath() const;
 
-	const bool CheckCorrectDictionary(const std::vector<std::string>& keys, const std::unordered_map<std::string, std::string>& dictionary) const;
+	const bool CheckCorrectDictionary(const std::vector<std::string>& keys, const std::unordered_map<std::string, std::string>& dictionary, std::string& errorMess) const;
 
 	const bool CheckAllTranslationsExist(const std::string& folderPath, const std::vector<language>& languages) const;
 
